@@ -18,7 +18,6 @@ function highlight(table) {
   for (let i = 1; i < table.rows.length; i++) {
     statusCell = table.rows[i].cells[indexOfStatus];
     if (statusCell.hasAttribute("data-available")) {
-      console.log("lol");
       statusCell.parentElement.classList.add(
         statusCell.dataset.available === "true" ? "available" : "unavailable"
       );
