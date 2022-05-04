@@ -16,7 +16,7 @@ function highlight(table) {
   }
 
   for (let i = 1; i < table.rows.length; i++) {
-    statusCell = table.rows[i].cells[indexOfStatus];
+    let statusCell = table.rows[i].cells[indexOfStatus];
     if (statusCell.hasAttribute("data-available")) {
       statusCell.parentElement.classList.add(
         statusCell.dataset.available === "true" ? "available" : "unavailable"
@@ -25,10 +25,10 @@ function highlight(table) {
       statusCell.parentElement.hidden = true;
     }
 
-    genderCell = table.rows[i].cells[indexOfGender];
+    let genderCell = table.rows[i].cells[indexOfGender];
     genderCell.parentElement.classList.add(genderCell.textContent === "m" ? "male" : "female");
 
-    ageCell = table.rows[i].cells[indexOfAge];
+    let ageCell = table.rows[i].cells[indexOfAge];
     if (ageCell.textContent < 18) {
       ageCell.parentElement.style = "text-decoration: line-through";
     }
