@@ -152,8 +152,13 @@ export default class Cart {
     event.preventDefault();
     this.modalBody.querySelector('button[type="submit"]').classList.add("is-loading");
     let form = this.modalBody.querySelector(".cart-form");
-    fetch("https://httpbin.org/post", { method: "POST", body: new FormData(form) });
-    this.modalBody.querySelector('button[type="submit"]').classList.remove("is-loading");
+    const responsePromise = fetch("https://httpbin.org/post", {
+      method: "POST",
+      body: new FormData(form),
+    });
+    responsePromise.then(() => {
+      this.modalBody.querySelector('button[type="submit"]').classList.remove("is-loading");
+    });
     this.cartItems = [];
     this.cartIcon.update(this);
 
