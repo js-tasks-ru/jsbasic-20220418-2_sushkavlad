@@ -148,17 +148,16 @@ export default class Cart {
       "€" + this.getTotalPrice().toFixed(2);
   }
 
-  onSubmit(event) {
+  async onSubmit(event) {
     event.preventDefault();
     this.modalBody.querySelector('button[type="submit"]').classList.add("is-loading");
     let form = this.modalBody.querySelector(".cart-form");
-    const responsePromise = fetch("https://httpbin.org/post", {
+    const responsePromise = await fetch("https://httpbin.org/post", {
       method: "POST",
       body: new FormData(form),
     });
-    responsePromise.then(() => {
-      this.modalBody.querySelector('button[type="submit"]').classList.remove("is-loading");
-    });
+
+    this.modalBody.querySelector('button[type="submit"]').classList.remove("is-loading");
     this.cartItems = [];
     this.cartIcon.update(this);
 
