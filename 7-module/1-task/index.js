@@ -18,6 +18,7 @@ export default class RibbonMenu {
   #stepOfScroll = null;
   #leftArrow = null;
   #rightArrow = null;
+  value = "";
 
   constructor(categories) {
     this.#categories = categories;
@@ -90,10 +91,11 @@ export default class RibbonMenu {
       oldCategory.classList.remove("ribbon__item_active");
     }
     categoryElem.classList.add("ribbon__item_active");
+    this.value = categoryElem.dataset.id;
 
     this.#elem.dispatchEvent(
       new CustomEvent("ribbon-select", {
-        detail: categoryElem.dataset.id,
+        detail: this.value,
         bubbles: true,
       })
     );

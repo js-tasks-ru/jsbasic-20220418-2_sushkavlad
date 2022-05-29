@@ -13,7 +13,7 @@ export default class StepSlider {
   #progress = null;
   #steps = 0;
   #segments = 0;
-  #currentValue = 0;
+  currentValue = 0;
 
   constructor({ steps, value = 0 }) {
     this.#steps = steps;
@@ -39,14 +39,14 @@ export default class StepSlider {
     this.elem
       .querySelector(".slider__steps")
       .querySelectorAll("span")
-      [this.#currentValue].classList.add("slider__step-active");
+      [this.currentValue].classList.add("slider__step-active");
   }
 
   #setValueByClick(value) {
-    this.#currentValue = value;
-    this.elem.querySelector(".slider__value").textContent = this.#currentValue;
+    this.currentValue = value;
+    this.elem.querySelector(".slider__value").textContent = this.currentValue;
 
-    let valuePercents = (this.#currentValue / this.#segments) * 100;
+    let valuePercents = (this.currentValue / this.#segments) * 100;
     this.#thumb.style.left = `${valuePercents}%`;
     this.#progress.style.width = `${valuePercents}%`;
 
@@ -79,8 +79,8 @@ export default class StepSlider {
     this.#thumb.style.left = `${(relativePosition / this.#segments) * 100}%`;
     this.#progress.style.width = `${(relativePosition / this.#segments) * 100}%`;
 
-    this.#currentValue = Math.round(relativePosition);
-    this.elem.querySelector(".slider__value").textContent = this.#currentValue;
+    this.currentValue = Math.round(relativePosition);
+    this.elem.querySelector(".slider__value").textContent = this.currentValue;
 
     this.#changeActiveStep();
   };
@@ -90,12 +90,12 @@ export default class StepSlider {
     document.removeEventListener("pointerup", this.#pointerUp);
     this.elem.classList.remove("slider_dragging");
 
-    this.#thumb.style.left = `${(this.#currentValue / this.segments) * 100}%`;
-    this.#progress.style.width = `${(this.#currentValue / this.segments) * 100}%`;
+    this.#thumb.style.left = `${(this.currentValue / this.#segments) * 100}%`;
+    this.#progress.style.width = `${(this.currentValue / this.#segments) * 100}%`;
 
     this.elem.dispatchEvent(
       new CustomEvent("slider-change", {
-        detail: this.#currentValue,
+        detail: this.currentValue,
         bubbles: true,
       })
     );
@@ -109,7 +109,7 @@ export default class StepSlider {
 
     this.elem.dispatchEvent(
       new CustomEvent("slider-change", {
-        detail: this.#currentValue,
+        detail: this.currentValue,
         bubbles: true,
       })
     );
